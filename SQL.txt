@@ -1,0 +1,6 @@
+select tbl1.PRODUCT_ID,tbl1.name,tbl2.max_price,tbl2.min_price from
+(select * from PRODUCT)tbl1
+join
+(select PRODUCT_ID,(select min(PRICE)  from product_price tmp where tmp.PRODUCT_ID=pr.PRODUCT_ID)min_price,(select max(PRICE) 
+from product_price tmp where tmp.PRODUCT_ID=pr.PRODUCT_ID)max_price from PRODUCT_PRICE pr  GROUP BY pr.PRODUCT_ID)tbl2
+on tbl1.PRODUCT_ID=tbl2.PRODUCT_ID
